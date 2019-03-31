@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/BowlingGame/BowlingGame/obj
+/BowlingGame/.vs/BowlingGame/v15
+/BowlingGame/BowlingGameTests/bin/Debug/netcoreapp2.1
+/BowlingGame/BowlingGameTests/obj
