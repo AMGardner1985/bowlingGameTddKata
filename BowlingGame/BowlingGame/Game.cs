@@ -14,24 +14,49 @@ namespace BowlingGame
             rolls[currentRoll++] = pins;
         }
 
-        public int getScore()
+        public int GetScore()
         {
             int score = 0;
             int firstInFrame = 0;
             for (int frame = 0; frame < 10; frame++)
             {
-                if (isSpare(firstInFrame))
+                if (IsStrike(firstInFrame))
                 {
-                    score += 10 + rolls[firstInFrame + 2];
+                    score += NextTwoBallsForStike(firstInFrame);
+                    firstInFrame++;
+                }
+                else if (isSpare(firstInFrame))
+                {
+                    score += 10 + NextBallForSpare(firstInFrame);
                     firstInFrame += 2;
                 }
                 else
                 {
-                    score += rolls[firstInFrame] + rolls[firstInFrame + 1];
+                    score += TwoBallsInFrame(firstInFrame);
                     firstInFrame += 2;
                 }
             }
             return score;
+        }
+
+        private int TwoBallsInFrame(int firstInFrame)
+        {
+            return rolls[firstInFrame] + rolls[firstInFrame + 1];
+        }
+
+        private int NextBallForSpare(int firstInFrame)
+        {
+            return rolls[firstInFrame + 2];
+        }
+
+        private int NextTwoBallsForStike(int firstInFrame)
+        {
+            return 10 + rolls[firstInFrame + 1] + rolls[firstInFrame + 2];
+        }
+
+        private bool IsStrike(int firstInFrame)
+        {
+            return rolls[firstInFrame] == 10;
         }
 
         private bool isSpare(int firstInFrame)

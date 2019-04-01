@@ -13,6 +13,17 @@ namespace BowlingTest
                 g.roll(pins);
         }
 
+        private void RollSpare()
+        {
+            g.roll(5);
+            g.roll(5);
+        }
+
+        private void RollStrike()
+        {
+            g.roll(10);
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -30,7 +41,7 @@ namespace BowlingTest
         public void CanRoleGutterGame()
         {
             rollMany(20, 0);
-            Assert.AreEqual(0, g.getScore());
+            Assert.AreEqual(0, g.GetScore());
         }
 
 
@@ -38,18 +49,34 @@ namespace BowlingTest
         public void AllOnes()
         {
             rollMany(20, 1);
-            Assert.AreEqual(20, g.getScore());
+            Assert.AreEqual(20, g.GetScore());
         }
 
-        //[Ignore("")]
         [Test]
         public void OneSpare()
         {
-            g.roll(5);
-            g.roll(5); //spare
+            RollSpare();
             g.roll(3);
-            rollMany(17,0);
-            Assert.AreEqual(16, g.getScore());
+            rollMany(17, 0);
+            Assert.AreEqual(16, g.GetScore());
         }
+
+        [Test]
+        public void OneStrike()
+        {
+            RollStrike();
+            g.roll(3);
+            g.roll(4);
+            rollMany(16, 0);
+            Assert.AreEqual(24, g.GetScore());
+        }
+
+        [Test]
+        public void PerfectGame()
+        {
+            rollMany(12, 10);
+            Assert.AreEqual(300, g.GetScore());
+        }
+
     }   
 }
